@@ -2,8 +2,13 @@ package Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+
+import Modal.MovementsModal;
 
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -62,6 +67,26 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.close();
 
+    }
+
+    public ArrayList<MovementsModal> readMovements(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorMovements = db.rawQuery(" SELECT * FROM " + TABLE_NAME, null);
+
+        ArrayList<MovementsModal> movementsModalsArrayList = new ArrayList<>();
+
+        if (cursorMovements.moveToFirst()) {
+            do {
+                movementsModalsArrayList.add(new MovementsModal(
+                        cursorMovements.getString(1),
+                        cursorMovements.getString(2)
+                ));
+            } while (cursorMovements.moveToNext());
+        }
+        cursorMovements.close();
+        return movementsModalsArrayList;
     }
 
     @Override
