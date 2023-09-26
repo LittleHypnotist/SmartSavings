@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import Modal.MovementsModal;
 
@@ -27,9 +28,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private static final String VAL_COL = "value";
 
-    //private static final String DAY_COL = "day";
+    private static final String DAY_COL = "day";
 
-    //private static final String OPT_COL = "option";
+    private static final String OPT_COL = "option";
 
 
     public DBHandler(Context context){
@@ -43,15 +44,15 @@ public class DBHandler extends SQLiteOpenHelper {
                 " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + DESC_COL + " TEXT,"
                 //+ CAT_COL + " TEXT,"
-                + VAL_COL + " FLOAT)";
-        //+ DAY_COL + " DATE,"
-        //+ OPT_COL + " INTEGER)";
+                + VAL_COL + " FLOAT,"
+                + DAY_COL + " TEXT,"
+                + OPT_COL + " INTEGER)";
 
         db.execSQL(query);
     }
 
     //public void addNewCourse (String description, String category, float value, String day, int option){
-    public void addNewCourse (String description, float value){
+    public void addNewMovement(String description, float value, String day, int option){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -60,8 +61,8 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(DESC_COL, description);
         //values.put(CAT_COL, category);
         values.put(VAL_COL, value);
-        //values.put(DAY_COL, day);
-        //values.put(OPT_COL, option);
+        values.put(DAY_COL, day);
+        values.put(OPT_COL, option);
 
         db.insert(TABLE_NAME, null, values);
 
