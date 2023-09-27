@@ -15,22 +15,29 @@ import Modal.MovementsModal;
 public class DBHandler extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "smartSavings";
-
     private static final int DB_VERSION = 1;
 
-    private static final String TABLE_NAME = "movements";
+
+    private static final String TABLE_MOVEMENTS = "movements";
 
     private static final String ID_COL = "id";
 
     private static final String DESC_COL = "description";
 
-    //private static final String CAT_COL = "category";
+    private static final String CAT_COL = "category";
 
     private static final String VAL_COL = "value";
 
     private static final String DAY_COL = "day";
 
     private static final String OPT_COL = "option";
+
+
+
+    private static final String TABLE_CATEGORIES = "categories";
+    private static final String ID_CAT_COL = "id";
+    private static final String DESC_CAT = "desc_category";
+
 
 
     public DBHandler(Context context){
@@ -40,31 +47,39 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        String query = "CREATE TABLE " + TABLE_NAME +
+        String queryMovements = "CREATE TABLE " + TABLE_MOVEMENTS +
                 " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + DESC_COL + " TEXT,"
-                //+ CAT_COL + " TEXT,"
+                + CAT_COL + " INTEGER,"
                 + VAL_COL + " FLOAT,"
                 + DAY_COL + " TEXT,"
-                + OPT_COL + " INTEGER)";
+                + OPT_COL + " INTEGER,"
+                + "FOREIGN KEY (" + CAT_COL +") REFERENCES " + TABLE_CATEGORIES + "(" + ID_CAT_COL + "))";
 
-        db.execSQL(query);
+        db.execSQL(queryMovements);
+
+        String queryCategories = "CREATE TABLE " + TABLE_CATEGORIES +
+                " (" + ID_CAT_COL + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + DESC_CAT + " TEXT)";
+                db.execSQL(queryCategories);
     }
 
+
+
     //public void addNewCourse (String description, String category, float value, String day, int option){
-    public void addNewMovement(String description, float value, String day, int option){
+    public void addNewMovement(String description, float value, String day, int option, long category){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         values.put(DESC_COL, description);
-        //values.put(CAT_COL, category);
+        values.put(CAT_COL, category);
         values.put(VAL_COL, value);
         values.put(DAY_COL, day);
         values.put(OPT_COL, option);
 
-        db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_MOVEMENTS, null, values);
 
         db.close();
 
@@ -74,7 +89,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursorMovements = db.rawQuery(" SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursorMovements = db.rawQuery(" SELECT * FROM " + TABLE_MOVEMENTS, null);
 
         ArrayList<MovementsModal> movementsModalsArrayList = new ArrayList<>();
 
@@ -92,7 +107,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVEMENTS);
         onCreate(db);
     }
 }
