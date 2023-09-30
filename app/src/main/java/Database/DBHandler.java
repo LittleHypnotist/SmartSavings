@@ -14,10 +14,12 @@ import Modal.MovementsModal;
 
 public class DBHandler extends SQLiteOpenHelper {
 
+    //Database name and version
     private static final String DB_NAME = "smartSavings";
     private static final int DB_VERSION = 1;
 
 
+    //Table Movements
     private static final String TABLE_MOVEMENTS = "movements";
 
     private static final String ID_COL = "id";
@@ -33,7 +35,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String OPT_COL = "option";
 
 
-
+    //Table Categories
     private static final String TABLE_CATEGORIES = "categories";
     private static final String ID_CAT_COL = "id";
     private static final String DESC_CAT = "desc_category";
@@ -44,7 +46,7 @@ public class DBHandler extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-
+    //Create the tables for the Database
     @Override
     public void onCreate(SQLiteDatabase db){
         String queryMovements = "CREATE TABLE " + TABLE_MOVEMENTS +
@@ -61,11 +63,12 @@ public class DBHandler extends SQLiteOpenHelper {
         String queryCategories = "CREATE TABLE " + TABLE_CATEGORIES +
                 " (" + ID_CAT_COL + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + DESC_CAT + " TEXT)";
+
                 db.execSQL(queryCategories);
     }
 
 
-
+    //Add Movements
     //public void addNewCourse (String description, String category, float value, String day, int option){
     //public void addNewMovement(String description, float value, String day, int option, long category){
     public void addNewMovement(String description, float value, String day, int option){
@@ -83,6 +86,19 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.close();
 
+    }
+
+    //Add Categories
+    public void addNewCategory (String description){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(DESC_CAT, description);
+
+        db.insert(TABLE_CATEGORIES, null, values);
+
+        db.close();
     }
 
     public ArrayList<MovementsModal> readMovements(){
@@ -108,6 +124,7 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVEMENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
         onCreate(db);
     }
 }

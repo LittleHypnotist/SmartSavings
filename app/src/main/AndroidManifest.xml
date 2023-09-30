@@ -13,6 +13,7 @@
         android:theme="@style/Theme.SmartSavings"
         tools:targetApi="31">
         <activity android:name="Views.AllMovements"></activity>
+        <activity android:name="Views.AddCategories"></activity>
         <activity
             android:name="Views.AddMovements"
             android:exported="true">
