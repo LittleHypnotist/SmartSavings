@@ -144,7 +144,7 @@ public class AddMovements extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        if (item.getTitle().equals("Categories")){
+        if (item.getItemId() == R.id.action_categories){
             Intent i = new Intent(AddMovements.this, AllMovements.class);
             startActivity(i);
         }
