@@ -67,14 +67,14 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     //public void addNewCourse (String description, String category, float value, String day, int option){
-    public void addNewMovement(String description, float value, String day, int option, long category){
-
+    //public void addNewMovement(String description, float value, String day, int option, long category){
+    public void addNewMovement(String description, float value, String day, int option){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         values.put(DESC_COL, description);
-        values.put(CAT_COL, category);
+        //values.put(CAT_COL, category);
         values.put(VAL_COL, value);
         values.put(DAY_COL, day);
         values.put(OPT_COL, option);

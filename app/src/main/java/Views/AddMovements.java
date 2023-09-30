@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,6 +18,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +43,8 @@ public class AddMovements extends AppCompatActivity {
     private RadioButton radioButtonSpent, radioButtonGain;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
 
+    private Toolbar toolbarMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +58,10 @@ public class AddMovements extends AppCompatActivity {
         radioGroupOption = findViewById(R.id.groupRadioButtons);
         radioButtonSpent = findViewById(R.id.radioButtonSpent);
         radioButtonGain = findViewById(R.id.radioButtonGain);
+        toolbarMenu = findViewById(R.id.toolbar);
 
+
+        setSupportActionBar(toolbarMenu);
 
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +116,7 @@ public class AddMovements extends AppCompatActivity {
                 }
 
 
+
                 dbHandler.addNewMovement(desc, value, day, option);
 
 
@@ -123,5 +134,21 @@ public class AddMovements extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        if (item.getTitle().equals("Categories")){
+            Intent i = new Intent(AddMovements.this, AllMovements.class);
+            startActivity(i);
+        }
+
+        return true;
     }
 }
