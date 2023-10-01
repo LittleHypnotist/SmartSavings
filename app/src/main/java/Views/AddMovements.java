@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -26,15 +27,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartsavings.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import Adapter.CategorySpinnerAdapter;
 import Database.DBHandler;
 
 public class AddMovements extends AppCompatActivity {
 
     private EditText editTextDesc, editTextValue;
-    //private Spinner spinnerCat;
+    private Spinner spinnerCat;
     private Button buttonAdd, buttonPass;
     private DBHandler dbHandler;
     private TextView textViewDate;
@@ -59,6 +62,7 @@ public class AddMovements extends AppCompatActivity {
         radioButtonSpent = findViewById(R.id.radioButtonSpent);
         radioButtonGain = findViewById(R.id.radioButtonGain);
         toolbarMenu = findViewById(R.id.toolbar);
+        spinnerCat = findViewById(R.id.idSpinnerCat);
 
 
         setSupportActionBar(toolbarMenu);
@@ -95,6 +99,13 @@ public class AddMovements extends AppCompatActivity {
 
         dbHandler = new DBHandler(AddMovements.this);
 
+        ArrayList<String> listOfCategoryDescriptions = dbHandler.getCategoryDescriptions();
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listOfCategoryDescriptions);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCat.setAdapter(categoryAdapter);
+
+
+
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +116,9 @@ public class AddMovements extends AppCompatActivity {
                 String desc = editTextDesc.getText().toString();
                 Float value = Float.parseFloat(editTextValue.getText().toString());
                 String day = textViewDate.getText().toString();
+
+                String selectedCategoryDescription = spinnerCat.getSelectedItem().toString();
+                int categoryId = dbHandler.getCategoryIdFromDescription(selectedCategoryDescription);
 
 
                 if (radioGroupOption.getCheckedRadioButtonId() == R.id.radioButtonSpent){
@@ -117,11 +131,12 @@ public class AddMovements extends AppCompatActivity {
 
 
 
-                dbHandler.addNewMovement(desc, value, day, option);
+                dbHandler.addNewMovement(desc, value, day, option, categoryId);
 
 
             }
         });
+
 
         buttonPass.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -151,4 +166,7 @@ public class AddMovements extends AppCompatActivity {
 
         return true;
     }
+
+
+
 }

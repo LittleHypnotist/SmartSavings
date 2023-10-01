@@ -70,14 +70,13 @@ public class DBHandler extends SQLiteOpenHelper {
 
     //Add Movements
     //public void addNewCourse (String description, String category, float value, String day, int option){
-    //public void addNewMovement(String description, float value, String day, int option, long category){
-    public void addNewMovement(String description, float value, String day, int option){
+    public void addNewMovement(String description, float value, String day, int option, long category){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         values.put(DESC_COL, description);
-        //values.put(CAT_COL, category);
+        values.put(CAT_COL, category);
         values.put(VAL_COL, value);
         values.put(DAY_COL, day);
         values.put(OPT_COL, option);
@@ -101,6 +100,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    //Read movements
     public ArrayList<MovementsModal> readMovements(){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -120,6 +120,43 @@ public class DBHandler extends SQLiteOpenHelper {
         cursorMovements.close();
         return movementsModalsArrayList;
     }
+
+    //Read categories descs
+    public ArrayList<String> getCategoryDescriptions(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorCatDescs = db.rawQuery(" SELECT " + DESC_CAT + " FROM " + TABLE_CATEGORIES, null);
+
+        ArrayList<String> categoryDescriptions = new ArrayList<>();
+
+        if (cursorCatDescs.moveToFirst()){
+            do {
+                categoryDescriptions.add(cursorCatDescs.getString(0));
+            }while (cursorCatDescs.moveToNext());
+        }
+        cursorCatDescs.close();
+        return categoryDescriptions;
+    }
+
+    public int getCategoryIdFromDescription(String categoryDescription) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + ID_CAT_COL + " FROM " + TABLE_CATEGORIES + " WHERE " + DESC_CAT + "=?", new String[]{categoryDescription});
+
+        int categoryId = -1;
+
+        if (cursor.moveToFirst()) {
+            categoryId = cursor.getInt(0);
+        }
+
+        cursor.close();
+        db.close();
+
+        return categoryId;
+    }
+
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
