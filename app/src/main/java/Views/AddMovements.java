@@ -26,6 +26,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartsavings.R;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,7 +40,7 @@ public class AddMovements extends AppCompatActivity {
 
     private EditText editTextDesc, editTextValue;
     private Spinner spinnerCat;
-    private Button buttonAdd, buttonPass;
+    private Button buttonAdd;
     private DBHandler dbHandler;
     private TextView textViewDate;
     private RadioGroup radioGroupOption;
@@ -48,6 +50,8 @@ public class AddMovements extends AppCompatActivity {
 
     private Toolbar toolbarMenu;
 
+    private Toolbar bottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,16 +60,17 @@ public class AddMovements extends AppCompatActivity {
         editTextDesc = findViewById(R.id.idEditTextDesc);
         editTextValue = findViewById(R.id.idEditTextValue);
         buttonAdd = findViewById(R.id.buttonAdd);
-        buttonPass = findViewById(R.id.buttonPass);
         textViewDate = findViewById(R.id.textViewSelectDay);
         radioGroupOption = findViewById(R.id.groupRadioButtons);
         radioButtonSpent = findViewById(R.id.radioButtonSpent);
         radioButtonGain = findViewById(R.id.radioButtonGain);
         toolbarMenu = findViewById(R.id.toolbar);
         spinnerCat = findViewById(R.id.idSpinnerCat);
+        bottomNavigation = findViewById(R.id.bottom_navigation);
 
 
         setSupportActionBar(toolbarMenu);
+
 
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,17 +138,6 @@ public class AddMovements extends AppCompatActivity {
 
                 dbHandler.addNewMovement(desc, value, day, option, categoryId);
 
-
-            }
-        });
-
-
-        buttonPass.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(AddMovements.this, AllMovements.class);
-                startActivity(i);
 
             }
         });
