@@ -112,8 +112,9 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursorMovements.moveToFirst()) {
             do {
                 movementsModalsArrayList.add(new MovementsModal(
-                        cursorMovements.getString(1),
-                        cursorMovements.getString(2)
+                        cursorMovements.getString(2),
+                        cursorMovements.getString(3),
+                        cursorMovements.getInt(5)
                 ));
             } while (cursorMovements.moveToNext());
         }

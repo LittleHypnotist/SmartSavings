@@ -40,7 +40,7 @@ public class AddMovements extends AppCompatActivity {
 
     private EditText editTextDesc, editTextValue;
     private Spinner spinnerCat;
-    private Button buttonAdd;
+    private Button buttonAdd, botaoPass;
     private DBHandler dbHandler;
     private TextView textViewDate;
     private RadioGroup radioGroupOption;
@@ -67,6 +67,18 @@ public class AddMovements extends AppCompatActivity {
         toolbarMenu = findViewById(R.id.toolbar);
         spinnerCat = findViewById(R.id.idSpinnerCat);
         bottomNavigation = findViewById(R.id.bottom_navigation);
+
+        botaoPass = findViewById(R.id.buttonPass);
+
+        botaoPass.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(AddMovements.this, AllMovements.class);
+                startActivity(i);
+
+            }
+        });
 
 
         setSupportActionBar(toolbarMenu);
