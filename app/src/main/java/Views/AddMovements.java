@@ -64,9 +64,8 @@ public class AddMovements extends AppCompatActivity {
         radioGroupOption = findViewById(R.id.groupRadioButtons);
         radioButtonSpent = findViewById(R.id.radioButtonSpent);
         radioButtonGain = findViewById(R.id.radioButtonGain);
-        toolbarMenu = findViewById(R.id.toolbar);
         spinnerCat = findViewById(R.id.idSpinnerCat);
-        bottomNavigation = findViewById(R.id.bottom_navigation);
+
 
         botaoPass = findViewById(R.id.buttonPass);
 
@@ -81,7 +80,7 @@ public class AddMovements extends AppCompatActivity {
         });
 
 
-        setSupportActionBar(toolbarMenu);
+
 
 
         textViewDate.setOnClickListener(new View.OnClickListener() {

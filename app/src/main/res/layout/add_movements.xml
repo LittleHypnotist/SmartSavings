@@ -4,18 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Views.AddMovements">
+    tools:context="Views.AddMovements"
+    android:background="@color/white">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
     <TextView
         android:id="@+id/txtTitle"
@@ -131,7 +122,6 @@
         >
     </TextView>
 
-
     <RadioGroup
         android:id="@+id/groupRadioButtons"
         android:layout_width="wrap_content"
@@ -158,7 +148,7 @@
     </RadioGroup>
 
 
-    <Button
+    <android.widget.Button
         android:id="@+id/buttonAdd"
         android:layout_width="198dp"
         android:layout_height="49dp"
@@ -172,7 +162,7 @@
         app:layout_constraintTop_toBottomOf="@+id/groupRadioButtons"
         android:layout_marginTop="25dp"/>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/buttonPass"
         android:layout_width="198dp"
         android:layout_height="49dp"
@@ -196,31 +186,14 @@
         app:layout_constraintEnd_toEndOf="parent">
     </ImageView>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPass"
-        >
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/plus_movements">
-
-        </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
+        app:menu="@menu/bottom_navigation_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
