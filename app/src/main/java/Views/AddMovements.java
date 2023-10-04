@@ -50,12 +50,15 @@ public class AddMovements extends AppCompatActivity {
 
     private Toolbar toolbarMenu;
 
-    private Toolbar bottomNavigation;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_movements);
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setBackground(null);
 
         editTextDesc = findViewById(R.id.idEditTextDesc);
         editTextValue = findViewById(R.id.idEditTextValue);

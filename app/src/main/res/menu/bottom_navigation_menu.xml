@@ -5,12 +5,10 @@
         android:id="@+id/action_item1"
         android:title="AddMove"
         android:icon="@drawable/plus_movements"
-        app:showAsAction="always"
          />
     <item
         android:id="@+id/action_item2"
         android:title="Item 2"
         android:icon="@drawable/account_balance_black_48dp"
-        app:showAsAction="always"
          />
 </menu>
