@@ -2,14 +2,12 @@ package Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartsavings.R;
@@ -58,7 +56,7 @@ public class AddCategories extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.action_item1){
+                if (item.getItemId() == R.id.all_movements){
                     Intent intent1 = new Intent(AddCategories.this, AllMovements.class);
                     startActivity(intent1);
                 }

@@ -1,13 +1,10 @@
 package Views;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,9 +28,7 @@ import com.example.smartsavings.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import Adapter.CategorySpinnerAdapter;
 import Database.DBHandler;
 
 public class AddMovements extends AppCompatActivity {
@@ -85,7 +80,7 @@ public class AddMovements extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.action_item1){
+                if (item.getItemId() == R.id.all_movements){
                     Intent intent1 = new Intent(AddMovements.this, AllMovements.class);
                     startActivity(intent1);
                 } else if (item.getItemId() == R.id.action_item2) {
