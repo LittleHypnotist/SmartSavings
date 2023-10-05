@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -26,8 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartsavings.R;
-import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -82,7 +82,19 @@ public class AddMovements extends AppCompatActivity {
             }
         });
 
-
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.action_item1){
+                    Intent intent1 = new Intent(AddMovements.this, AllMovements.class);
+                    startActivity(intent1);
+                } else if (item.getItemId() == R.id.action_item2) {
+                    Intent intent1 = new Intent(AddMovements.this, AddCategories.class);
+                    startActivity(intent1);
+                }
+                return false;
+            }
+        });
 
 
 
